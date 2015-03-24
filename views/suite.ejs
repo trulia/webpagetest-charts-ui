@@ -1,0 +1,80 @@
+<% include _header %>
+        <div class="container">
+          <h1 class="h4 mvm"> <strong><i class="iconChartLine"></i>Webpagetest Charts:</strong> Suite of <%= suite.suiteConfig.suiteDisplayName %>  Tests</h1>
+        </div>
+      </div>
+      <div class="hideFully" id="navPlaceholder"></div>
+      <div id="navigation" class="backgroundLowlight">
+        <div class="container">
+          <div class="line mvm">
+            All Test Suites: <%- _.map(masterConfig.testSuites, function(suite){ 
+              return '<a href="/suite/' + suite.suiteId + '?' + chartSettings + '">' + suite.suiteDisplayName + '</a>';
+              }).join(' | ')%>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="content contentResponsive">
+      <section>
+        <div class="sideBar">
+          <h5><%= suite.suiteConfig.suiteDisplayName %></h5>
+          <p>
+          Every <%= suite.suiteConfig.runEvery %> minutes a new data point is added to these charts.
+          </p>
+          <h6>Chart Settings</h6>
+          <form id="updateChart" method="get">
+          <div class="form">
+            <div class="field">
+              <label for="select" class="fieldLabel">Data Set</label>
+              <span class="fieldItem select">
+                <select name="chartType">
+                  <% suite.availableChartTypes.forEach(function(type) {%>
+                  <option value="<%= type %>" <% if (type == suite.chartConfig.type) { %>selected="selected"<% } %>><%= type %></option>
+                  <% }); %>
+                </select>
+              </span>
+            </div>
+            <div class="field">
+              <label for="dataRange" class="fieldLabel">Data Range (lo,hi)</label>
+              <span class="fieldItem text">
+                <input name="dataRange" value="<%= suite.chartConfig.dataRange[0] %>,<%= suite.chartConfig.dataRange[1] %>" type="text">
+              </span>
+            </div>
+            <div class="field">
+              <label for="dateCutoff" class="fieldLabel">Days Shown</label>
+              <span class="fieldItem text">
+                <input name="dateCutoff" value="<%= suite.chartConfig.dateCutoff %>" type="text">
+            </div>
+            
+            <input type="submit" class="btn btnPrimary" value="Update Chart">
+          </div>
+          </form>
+          <hr>
+
+          <% if (suite.chartConfig.type == 'SpeedIndex') { %>
+          <p>
+          The score that you see
+          charted here is the google <a href="https://sites.google.com/a/webpagetest.org/docs/using-webpagetest/metrics/speed-index">Speed Index</a>, which is a lower is better measure of above the fold experience.  It's a handly blend of server speed and browser rendering.
+          </p>
+          <% } %>
+          <p>
+            The code that runs this interface is in the <a href="http://stash.sv2.trulia.com/projects/WEB/repos/webpagetest-tool/browse">webpagetest-tool repo</a> Pull Requests are welcome.
+
+        </div>
+        <div class="main" role="main">
+          <% _.each(suite.charts, function(test){ %>
+          <div class="box boxBasic backgroundBasic">
+            <div class="boxHead boxHeadBasic">
+              <h5><%= test.testDisplayName %> <span class="typeDeemphasize">click a data point to see details</h5>
+            </div>
+            <div class="boxBody">
+              <div class="chart" id="<%= test.testId %>"></div>
+            </div>
+          </div>
+          <% }) %>
+        </div>
+         <!-- //main -->
+      </section>
+    </div>
+    <!-- //content -->
+<% include _footer %>

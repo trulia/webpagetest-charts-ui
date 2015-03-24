@@ -1,0 +1,72 @@
+    <script src='/javascripts/jquery.min.js'></script>
+    <script src='/javascripts/jquery.flot.js'></script>
+    <script src='/javascripts/jquery.flot.time.js'></script>
+    <script src='/javascripts/regression.js'></script>
+    <script>
+      var chartData = <%- chartData %>;
+      var chartSettings = '<%- chartSettings %>';
+
+      chartData.forEach(function(data){
+          // do the regression (polynomial to the third degree)
+        var myFVRegression = regression('linear', data.fvValues, 3);
+        var myRVRegression = regression('linear', data.rvValues, 3);
+
+        // Plot the result
+        var plot = $.plot($('#' + data.testId), [
+            {
+              data: data.fvValues,
+              label: 'Uncached View',
+              lines: { show: false },
+              points: { show: true, radius: 5},
+              color: '#0000ff'
+            },
+            {
+              data: myFVRegression.points,
+              color: (myFVRegression.equation[0] > 0.00005 ? '#D00': '#00A'),
+              points: {show: false},
+              lines: {
+                lineWidth: 3
+              }
+            },
+            {
+              data: data.rvValues,
+              label: 'Refresh View',
+              lines: { show: false },
+              points: { show: true, radius: 5},
+              color: '#00dd00'
+            },
+            {
+              data: myRVRegression.points,
+              color: (myRVRegression.equation[0] > 0.00005 ? '#D00': '#0A0'),
+              points: {show: false},
+              lines: {
+                lineWidth: 3
+              }
+            }
+          ],
+          {
+            legend: { position: "nw" },
+            grid: { hoverable: true, clickable: true, autoHighlight: true },
+            xaxis: {
+              show: true,
+              mode: 'time',
+              timezone: 'browser',
+              minTickSize: [1, "day"],
+              timeFormat: '%m/%d'
+            },
+            shadowSize: 0
+          }
+        );
+
+        $('#' + data.testId).bind("plothover", function (event, pos, item) {
+          document.body.style.cursor = (item ? 'pointer' : 'default');
+        });
+
+        $('#' + data.testId).bind("plotclick", function (event, pos, item) {
+          if (item) {
+            document.location = '/suite/' + data.suiteId + '/' + data.testId + '/' + data.datapoints[item.dataIndex]  + '?' + chartSettings;
+          }
+        });
+      });
+
+    </script>

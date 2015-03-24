@@ -1,0 +1,47 @@
+<% include _header %>
+
+        <div class="container">
+          <h1 class="h4 mvm"> <strong><i class="iconChartLine"></i>Webpagetest Charts</strong></h1>
+        </div>
+      </div>
+      <div class="hideFully" id="navPlaceholder"></div>
+      <div id="navigation" class="backgroundLowlight">
+        <div class="container">
+          <div class="line mvm">
+            <% var loopCount = 1; _.each(testSuites, function(suite, key, index){ %>
+              <a href="/suite/<%= suite.suiteId %>"><%= suite.suiteDisplayName %></a>
+              <%= (loopCount < _.size(testSuites) ? '|' : '') %>
+              <% loopCount++; }) %>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="content contentResponsive">
+      <section>
+        <div class="main" role="main">
+          <h2>Available Test Suites</h2>
+          <% _.each(testSuites, function(suite){ %>
+          <h3><a href="/suite/<%= suite.suiteId %>"><%= suite.suiteDisplayName %></a></h3>
+          <p>
+            <%= suite.desc %>.  It runs on these urls every <%= suite.runEvery %> minutes:
+          </p>
+          <ul class="listBulleted">
+            <% _.each(suite.testPages, function(test){ %>
+            <li>
+              <%= test.testDisplayName %>: 
+            <% if (test.parentPath) { %>
+            Go to <%=  (test.testHost || suite.testHost) %><%= test.parentPath %> and test the first link matching $('<%= test.parentHrefSelector %>')
+            <% } else { %>
+            <%=  (test.testHost || suite.testHost) %><%= test.path %>
+            <% } %>
+            </li>
+            <% }) %>
+          </ul>
+          <hr>
+          <% }) %>
+        </div>
+         <!-- //main -->
+      </section>
+    </div>
+    <!-- //content -->
+<% include _footer %>

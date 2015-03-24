@@ -1,0 +1,77 @@
+<% include _header %>
+        <div class="container">
+          <h1 class="h4 mvm"> <strong><i class="iconChartLine"></i>Webpagetest Charts:</strong> <%= datapoint.testConfig.testDisplayName %> <%= datapoint.datapointId %></h1>
+        </div>
+      </div>
+      <div class="hideFully" id="navPlaceholder"></div>
+      <div id="navigation" class="backgroundLowlight typeReversed">
+        <div class="container">
+          <div class="line mvm">
+            <div class="col cols6">
+            <% if (datapoint.prevTest) { %><a href="/suite/<%= datapoint.prevTest.suiteId %>/<%= datapoint.prevTest.testId %>/<%= datapoint.prevTest.datapointId %>?<%= chartSettings %>" class="typeEmphasize"><i class="iconLeft"></i>Previous test in this series</a><% } %> 
+            </div>
+            <div class="col cols12 txtC">
+              <a href="../">Back to Overview</a>
+            </div>
+            <div class="col colExt cols6 txtR">
+                <% if (datapoint.nextTest) { %><a href="/suite/<%= datapoint.nextTest.suiteId %>/<%= datapoint.nextTest.testId %>/<%= datapoint.nextTest.datapointId %>?<%= chartSettings %>" class="typeEmphasize">Next test in this series<i class="iconRight"></i></a><% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+     <div class="content contentResponsive">
+      <div class="line" style="overflow: scroll">
+        <div class="col cols24 txtL">
+          <img src="/apiproxy?asset=<%= datapoint.firstViewfilmstripImage %>">
+          <img src="/apiproxy?asset=<%= datapoint.repeatViewFilmstripImage %>">
+        </div>
+      </div>
+      <section>
+        <!-- div class="sideBar">
+          
+        </div -->
+        <aside class="aside" role="complementary">
+          <h3>Test History</h3>
+          <div class="smallChart" id="<%= datapoint.testId %>"></div>
+          <h3>Test Data</h3>
+          <table class="table tableHover tableRowBorderedTop tableRowBorderedBottom">
+            <thead>
+              <tr>
+                <th class="">Stat</th>
+                <th class="">Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="txtL">Speed Index</td>
+                <td class="txtC"><%= datapoint.testResults.response.data.run.firstView.results.SpeedIndex %></td>
+              </tr>
+              <tr>
+                <td class="txtL">Initial Render</td>
+                <td class="txtC"><%= datapoint.testResults.response.data.run.firstView.results.render / 1000 %>s</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="txtC">
+            <a href="<%= datapoint.testResults.response.data.summary %>" class="btn btnDefault  mbm">Review this test at webpagetest.org</a>
+            <a href="/apiproxy?asset=<%= datapoint.jsonLink %>" class="btn btnDefault">Full JSON Test Results</a>
+          </div>
+        </aside>
+        <div class="main" role="main">
+          <div class="line">
+            <div class="col cols12">
+              <h3><a href="http://www.webpagetest.org/video/compare.php?tests=<%= datapoint.testResults.response.data.testId %>-r:1-c:0">Uncached View</a></h3>
+              <a class="waterfall" href="http://www.webpagetest.org/video/compare.php?tests=<%= datapoint.testResults.response.data.testId %>-r:1-c:0"><img  src="/apiproxy?asset=<%= datapoint.firstViewWaterfallImage %>"></a>
+            </div>
+            <div class="col cols12">
+              <h3><a href="http://www.webpagetest.org/video/compare.php?tests=<%= datapoint.testResults.response.data.testId %>-r:1-c:1">Repeat View</a></h3>
+              <a class="waterfall" href="http://www.webpagetest.org/video/compare.php?tests=<%= datapoint.testResults.response.data.testId %>-r:1-c:1"><img  src="/apiproxy?asset=<%= datapoint.repeatViewWaterfallImage %>"></a>
+            </div>
+          </div>
+        </div>
+         <!-- //main -->
+      </section>
+    </div>
+    <!-- //content -->
+<% include _footer %>
