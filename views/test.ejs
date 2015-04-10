@@ -54,28 +54,28 @@
             <tbody>
               <tr>
                 <td class="txtL">Speed Index</td>
-                <td class="txtC"><%= datapoint.testResults.response.data.run.firstView.results.SpeedIndex %></td>
+                <td class="txtC"><%= datapoint.testResults.data.runs[1].firstView.SpeedIndex %></td>
               </tr>
               <tr>
                 <td class="txtL">Initial Render</td>
-                <td class="txtC"><%= datapoint.testResults.response.data.run.firstView.results.render / 1000 %>s</td>
+                <td class="txtC"><%= datapoint.testResults.data.runs[1].firstView.render / 1000 %>s</td>
               </tr>
             </tbody>
           </table>
           <div class="txtC">
-            <a href="<%= datapoint.testResults.response.data.summary %>" class="btn btnDefault  mbm">Review this test at webpagetest.org</a>
+            <a href="<%= datapoint.testResults.data.summary %>" class="btn btnDefault  mbm">Review this test at webpagetest.org</a>
             <a href="/apiproxy?asset=<%= datapoint.jsonLink %>" class="btn btnDefault">Full JSON Test Results</a>
           </div>
         </aside>
         <div class="main" role="main">
           <div class="line">
             <div class="col cols12">
-              <h3><a href="http://www.webpagetest.org/video/compare.php?tests=<%= datapoint.testResults.response.data.testId %>-r:1-c:0">Uncached View</a></h3>
-              <a class="waterfall" href="http://www.webpagetest.org/video/compare.php?tests=<%= datapoint.testResults.response.data.testId %>-r:1-c:0"><img  src="/apiproxy?asset=<%= datapoint.firstViewWaterfallImage %>"></a>
+              <h3><a href="http://www.webpagetest.org/video/compare.php?tests=<%= datapoint.testResults.data.id %>-r:1-c:0">Uncached View</a></h3>
+              <a class="waterfall" href="http://www.webpagetest.org/video/compare.php?tests=<%= datapoint.testResults.data.id %>-r:1-c:0"><img src="<%= datapoint.testResults.data.runs[1].firstView.images.waterfall %>"></a>
             </div>
             <div class="col cols12">
-              <h3><a href="http://www.webpagetest.org/video/compare.php?tests=<%= datapoint.testResults.response.data.testId %>-r:1-c:1">Repeat View</a></h3>
-              <a class="waterfall" href="http://www.webpagetest.org/video/compare.php?tests=<%= datapoint.testResults.response.data.testId %>-r:1-c:1"><img  src="/apiproxy?asset=<%= datapoint.repeatViewWaterfallImage %>"></a>
+              <h3><a href="http://www.webpagetest.org/video/compare.php?tests=<%= datapoint.testResults.data.id %>-r:1-c:1">Repeat View</a></h3>
+              <a class="waterfall" href="http://www.webpagetest.org/video/compare.php?tests=<%= datapoint.testResults.data.id %>-r:1-c:1"><img  src="<%= datapoint.testResults.data.runs[1].repeatView.images.waterfall %>"></a>
             </div>
           </div>
         </div>
