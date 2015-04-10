@@ -71,8 +71,8 @@ router.get('/:suiteId/:testId/:datapointId', function(req, res) {
           pageTitle: results[0].datapointId,
           datapoint: results[0],
           filmstrips: [
-            buildFilmstrip(results[0].testResults.response.data.run.firstView.videoFrames.frame),
-            buildFilmstrip(results[0].testResults.response.data.run.repeatView.videoFrames.frame)
+            buildFilmstrip(results[0].testResults.data.runs[1].firstView.videoFrames),
+            buildFilmstrip(results[0].testResults.data.runs[1].repeatView.videoFrames)
           ],
           chartData: JSON.stringify([results[0].chart]),
           masterConfig: results[1],
@@ -82,7 +82,6 @@ router.get('/:suiteId/:testId/:datapointId', function(req, res) {
 
         debug('data for datapoint');
         debug(data);
-        console.log(data)
 
         res.render('test', data);
   });
@@ -92,6 +91,7 @@ function buildFilmstrip(testFrames) {
   var frames = []
   var incr = 0;
   var prevFrame;
+
   while (testFrames.length) { 
     //get the first frame in the timeslot
     var frame = _.assign({incr: incr}, _.first(_.remove(testFrames, function(n){
@@ -115,6 +115,5 @@ function buildFilmstrip(testFrames) {
 
   return frames;
 }
-
 
 module.exports = router;
