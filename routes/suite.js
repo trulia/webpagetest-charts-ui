@@ -70,6 +70,10 @@ router.get('/:suiteId/:testId/:datapointId', function(req, res) {
           _: _,
           pageTitle: results[0].datapointId,
           datapoint: results[0],
+          filmstrips: [
+            buildFilmstrip(results[0].testResults.response.data.run.firstView.videoFrames.frame),
+            buildFilmstrip(results[0].testResults.response.data.run.repeatView.videoFrames.frame)
+          ],
           chartData: JSON.stringify([results[0].chart]),
           masterConfig: results[1],
           fileHost: process.env.WPT_API,
@@ -83,5 +87,34 @@ router.get('/:suiteId/:testId/:datapointId', function(req, res) {
         res.render('test', data);
   });
 });
+
+function buildFilmstrip(testFrames) {
+  var frames = []
+  var incr = 0;
+  var prevFrame;
+  while (testFrames.length) { 
+    //get the first frame in the timeslot
+    var frame = _.assign({incr: incr}, _.first(_.remove(testFrames, function(n){
+      return n.time <= incr;
+    })));
+
+    //if no frame, use prev
+    if (!frame.time) {
+      frame = _.defaults(frame, prevFrame);
+      frame.css = 'frameSame';
+    } else {
+      frame.css = 'frameChange';
+    }
+
+    frames.push(frame);
+
+    //tick
+    prevFrame = frame;
+    incr = incr + 500;
+  } 
+
+  return frames;
+}
+
 
 module.exports = router;

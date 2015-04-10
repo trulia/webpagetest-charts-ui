@@ -23,8 +23,17 @@
      <div class="content contentResponsive">
       <div class="line" style="overflow: scroll">
         <div class="col cols24 txtL">
-          <img src="/apiproxy?asset=<%= datapoint.firstViewfilmstripImage %>">
-          <img src="/apiproxy?asset=<%= datapoint.repeatViewFilmstripImage %>">
+          <% filmstrips.forEach(function(strip){ %>
+            <div class="filmstrip">
+            <% strip.forEach(function(frame){ %>
+                <div class="frame txtC">
+                  <div class="typeReversed"><%= Number(frame.incr / 1000).toFixed(1) %> sec</div>
+                  <img src="<%= frame.image %>" height="100" class="<%= frame.css %>">
+                  <div class="typeReversed"><%= frame.VisuallyComplete %>%</div>
+                </div>
+            <% }); %>
+            </div>
+          <% }); %>
         </div>
       </div>
       <section>
