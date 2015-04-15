@@ -1,7 +1,8 @@
 #Webpagetest Charts UI
-This is a chart UI built on top of [webpagetest-charts-api](https://github.com/trulia/webpagetest-charts-api) and all the data and chart types that
-it exposes. Goal is to make it easy to quickly analyze WPT results.  Display charts to see trends
-and some local data, but always link off to the WPT page for full data. Don't wanna rebuild WPT.
+This is a chart UI built on top of [webpagetest-charts-api](https://github.com/trulia/webpagetest-charts-api) 
+and all the data and chart types that it exposes. Goal is to make it easy to quickly analyze WPT results.  
+Display charts to see trends and some local data, but always link off to the WPT page for full data.
+Don't wanna rebuild WPT, just make it more accessible.
 
 ## Installation
 
@@ -9,9 +10,11 @@ and some local data, but always link off to the WPT page for full data. Don't wa
 
 1. clone this repo
 
+1. `npm install` inside the repo.
+
 1. `WPT_API="http://where-your-wpt-api-is-running:port" npm start`
 
-1. Visit the app and port and you should see a list of available tests.
+1. Visit the app and port and you should see a list of available tests (assuming your API has completed some test runs).
 
 If things get weird You can get into debug mode with:
 
@@ -38,5 +41,17 @@ results, or click through to the full WPT test page to get even more data.
 
 ![datapoint](http://static.trulia-cdn.com/images/webpagetest-charts/webpagetest-charts-ui-datapoint.png)
 
+## Contributing
+PRs are Happily Accepted! The preferred PR method is:
+
+1. Fork this repo
+2. Create a feature branch on your fork
+3. code things
+4. PR your feature branch to this master
+5. We'll check out your PR, test, code review and when it's ready merge it in.
+
+If you have a larger idea, feel free to bring it up in an issue first
+
 ## TODO
 1. chage the UI to better display a suite that has lots of tests
+1. Get off of Trulia's CSS and into a known framework
