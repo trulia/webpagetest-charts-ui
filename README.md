@@ -55,3 +55,8 @@ If you have a larger idea, feel free to bring it up in an issue first
 ## TODO
 1. chage the UI to better display a suite that has lots of tests
 1. Get off of Trulia's CSS and into a known framework
+
+## Code of Conduct
+Please note that this project is released with a Contributor Code of Conduct. 
+By participating in this project you agree to abide by its terms.
+
