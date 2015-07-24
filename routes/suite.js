@@ -4,13 +4,14 @@ var router        = express.Router();
 var _             = require('lodash');
 var request       = require('request');
 var async       = require('async');
+var moment       = require('moment');
 var Qs = require('qs')
 
 /**
  * Get all the charts for a suite
  */
 router.get('/:suiteId', function(req, res) {
-  
+
   async.parallel([
     function(callback) {
       var url = process.env.WPT_API + '/tests/' + req.params.suiteId + '?' + Qs.stringify(req.query);
@@ -65,14 +66,15 @@ router.get('/:suiteId/:testId/:datapointId', function(req, res) {
     }
   ],
   function(err, results) {
-
-    var data       = {
+    var testResults = results[0].testResults
+      , data       = {
           _: _,
-          pageTitle: results[0].datapointId,
+          pageTitle: results[0].testConfig.testDisplayName,
+          testDate: moment(testResults.data.completed * 1000).format('MMM D, YYYY \a\t h:mm a'),
           datapoint: results[0],
           filmstrips: [
-            buildFilmstrip(results[0].testResults.data.runs[1].firstView.videoFrames),
-            buildFilmstrip(results[0].testResults.data.runs[1].repeatView.videoFrames)
+            buildFilmstrip(testResults.data.runs[1].firstView.videoFrames),
+            buildFilmstrip(testResults.data.runs[1].repeatView.videoFrames)
           ],
           chartData: JSON.stringify([results[0].chart]),
           masterConfig: results[1],
@@ -92,7 +94,7 @@ function buildFilmstrip(testFrames) {
   var incr = 0;
   var prevFrame;
 
-  while (testFrames.length) { 
+  while (testFrames.length) {
     //get the first frame in the timeslot
     var frame = _.assign({incr: incr}, _.first(_.remove(testFrames, function(n){
       return n.time <= incr;
@@ -111,7 +113,7 @@ function buildFilmstrip(testFrames) {
     //tick
     prevFrame = frame;
     incr = incr + 500;
-  } 
+  }
 
   return frames;
 }

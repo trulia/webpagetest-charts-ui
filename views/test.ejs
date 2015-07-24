@@ -1,6 +1,6 @@
 <% include _header %>
         <div class="container">
-          <h1 class="h4 mvm"> <strong><i class="iconChartLine"></i>Webpagetest Charts:</strong> <%= datapoint.testConfig.testDisplayName %> <%= datapoint.datapointId %></h1>
+          <h1 class="h4 mvm"> <strong><i class="iconChartLine"></i>Webpagetest Charts:</strong> <%= pageTitle %> <%= testDate %></h1>
         </div>
       </div>
       <div class="hideFully" id="navPlaceholder"></div>
@@ -8,7 +8,7 @@
         <div class="container">
           <div class="line mvm">
             <div class="col cols6">
-            <% if (datapoint.prevTest) { %><a href="/suite/<%= datapoint.prevTest.suiteId %>/<%= datapoint.prevTest.testId %>/<%= datapoint.prevTest.datapointId %>?<%= chartSettings %>" class="typeEmphasize"><i class="iconLeft"></i>Previous test in this series</a><% } %> 
+            <% if (datapoint.prevTest) { %><a href="/suite/<%= datapoint.prevTest.suiteId %>/<%= datapoint.prevTest.testId %>/<%= datapoint.prevTest.datapointId %>?<%= chartSettings %>" class="typeEmphasize"><i class="iconLeft"></i>Previous test in this series</a><% } %>
             </div>
             <div class="col cols12 txtC">
               <a href="../">Back to Overview</a>
@@ -38,7 +38,7 @@
       </div>
       <section>
         <!-- div class="sideBar">
-          
+
         </div -->
         <aside class="aside" role="complementary">
           <h3>Test History</h3>
