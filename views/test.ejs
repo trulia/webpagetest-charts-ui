@@ -21,6 +21,11 @@
       </div>
     </header>
      <div class="content contentResponsive">
+      <div class="line">
+        <div class="col cols24 txtL h4 pvm">
+          Tested: <a href="<%= datapoint.testResults.data.url %>" target="_blank"><%= datapoint.testResults.data.url %></a>
+        </div>
+      </div>
       <div class="line" style="overflow: scroll">
         <div class="col cols24 txtL">
           <% filmstrips.forEach(function(strip){ %>
