@@ -1,3 +1,6 @@
+.DS_Store
+public/stylesheets/styles.css
+
 # Logs
 logs
 *.log
@@ -18,7 +21,7 @@ coverage
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
-public/stylesheets/styles.css
+
 
 # Dependency directory
 # Commenting this out is preferred by some people, see
