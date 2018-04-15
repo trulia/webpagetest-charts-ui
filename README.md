@@ -1,4 +1,4 @@
-#Webpagetest Charts UI
+# Webpagetest Charts UI
 This is a chart UI built on top of [webpagetest-charts-api](https://github.com/trulia/webpagetest-charts-api) 
 and all the data and chart types that it exposes. Goal is to make it easy to quickly analyze WPT results.  
 Display charts to see trends and some local data, but always link off to the WPT page for full data.
