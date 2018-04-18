@@ -22,12 +22,12 @@
           Every <%= suite.suiteConfig.runEvery %> minutes a new data point is added to these charts.
           </p>
           <h6>Chart Settings</h6>
-          <form id="updateChart" method="get">
+          <form id="updateChart" name="updateChart" method="get">
           <div class="form">
             <div class="field">
               <label for="select" class="fieldLabel">Data Set</label>
               <span class="fieldItem select">
-                <select name="chartType">
+                <select name="chartType" onChange="(function() { document.forms['updateChart'].elements['dataRange'].value = ''})()">
                   <% suite.availableChartTypes.forEach(function(type) {%>
                   <option value="<%= type %>" <% if (type == suite.chartConfig.type) { %>selected="selected"<% } %>><%= type %></option>
                   <% }); %>
