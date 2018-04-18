@@ -54,6 +54,7 @@ router.get('/:suiteId/:testId/:datapointId', function(req, res) {
       var url = process.env.WPT_API + '/tests/' +
           req.params.suiteId + '/' + req.params.testId + '/' +
           req.params.datapointId + '?' + Qs.stringify(req.query);
+          debug(url)
       request(url, function(err, response, data) {
         callback(null, JSON.parse(data));
       });
